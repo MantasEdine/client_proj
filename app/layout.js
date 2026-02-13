@@ -7,9 +7,15 @@ import { ClerkProvider } from "@clerk/nextjs";
 const outfit = Outfit({ subsets: ['latin'], weight: ["300", "400", "500"] })
 
 export const metadata = {
-  title: "N-finity - Yacine-Belfort",
+  title: "N-finity",
   description: "Site E-commerce Belfort Harrach , Alger , Algérie",
+  openGraph: {
+    title: "N-finity",
+    description: "Site E-commerce Belfort Harrach , Alger , Algérie",
+    images: ["/assets/logo.png"],
+  },
 };
+
 
 export default function RootLayout({ children }) {
   return (
