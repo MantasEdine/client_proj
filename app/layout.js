@@ -12,7 +12,7 @@ export const metadata = {
   openGraph: {
     title: "N-finity",
     description: "Site E-commerce Belfort Harrach , Alger , Algérie",
-    images: ["/logo.png"],
+    images: ["/logo2.png"],
   },
 };
 
