@@ -5,22 +5,52 @@ import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 import Footer from "@/components/seller/Footer";
 import Loading from "@/components/Loading";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const ProductList = () => {
 
-  const { router } = useAppContext()
+  const { router , getToken , user } = useAppContext()
 
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
+
+   const deleteProduct = async (productId) =>{
+    try {
+      const {data} = await  axios.delete('/api/product/update',{data : {productId}})
+      if (data.success){
+        toast.success("Produit Supprimier !")
+      }else {
+        toast.error("Erreur , produit pas supprimer !")
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+   }
+
   const fetchSellerProduct = async () => {
-    setProducts(productsDummyData)
-    setLoading(false)
+    try {
+      const token = await getToken()
+      const {data} = await axios.get('/api/product/seller-list',{headers:{Authorization:`Bearer ${token}`}})
+      if(data.success){
+        setProducts(data.products)
+        setLoading(false)
+      }else {
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
 
+
   useEffect(() => {
+    if(user){
     fetchSellerProduct();
-  }, [])
+
+    }
+  }, [user])
 
   return (
     <div className="flex-1 min-h-screen flex flex-col justify-between">
@@ -56,9 +86,10 @@ const ProductList = () => {
                     </span>
                   </td>
                   <td className="px-4 py-3 max-sm:hidden">{product.category}</td>
-                  <td className="px-4 py-3">${product.offerPrice}</td>
+                  <td className="px-4 py-3">{product.offerPrice}DA</td>
                   <td className="px-4 py-3 max-sm:hidden">
-                    <button onClick={() => router.push(`/product/${product._id}`)} className="flex items-center gap-1 px-1.5 md:px-3.5 py-2 bg-orange-600 text-white rounded-md">
+                    <div className="flex gap-2">
+                      <button onClick={() => router.push(`/product/${product._id}`)} className="flex items-center gap-1 px-1.5 md:px-3.5 py-2 bg-orange-600 text-white rounded-md">
                       <span className="hidden md:block">Visit</span>
                       <Image
                         className="h-3.5"
@@ -66,6 +97,10 @@ const ProductList = () => {
                         alt="redirect_icon"
                       />
                     </button>
+                    <button onClick={()=>deleteProduct(product._id)} className="flex items-center gap-1 px-1.5 md:px-3.5 py-2 bg-red-600 text-white rounded-md">
+                      <span className="hidden md:block">Supprimer</span>
+                    </button>
+                    </div>
                   </td>
                 </tr>
               ))}

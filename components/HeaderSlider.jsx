@@ -18,7 +18,7 @@ const HeaderSlider = () => {
       offer: "Hurry up only few lefts!",
       buttonText1: "Shop Now",
       buttonText2: "Explore Deals",
-      imgSrc: assets.header_playstation_image,
+      imgSrc: assets.apple_earphone_image,
     },
     {
       id: 3,
@@ -26,7 +26,7 @@ const HeaderSlider = () => {
       offer: "Exclusive Deal 40% Off",
       buttonText1: "Order Now",
       buttonText2: "Learn More",
-      imgSrc: assets.header_macbook_image,
+      imgSrc: assets.ancre_sound_core_image,
     },
   ];
 

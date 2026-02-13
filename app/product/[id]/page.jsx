@@ -85,9 +85,9 @@ const Product = () => {
                         {productData.description}
                     </p>
                     <p className="text-3xl font-medium mt-6">
-                        ${productData.offerPrice}
+                        {productData.offerPrice}DA
                         <span className="text-base font-normal text-gray-800/60 line-through ml-2">
-                            ${productData.price}
+                            {productData.price}DA
                         </span>
                     </p>
                     <hr className="bg-gray-600 my-6" />
@@ -113,11 +113,11 @@ const Product = () => {
                     </div>
 
                     <div className="flex items-center mt-10 gap-4">
-                        <button onClick={() => addToCart(productData._id)} className="w-full py-3.5 bg-gray-100 text-gray-800/80 hover:bg-gray-200 transition">
-                            Add to Cart
+                        <button onClick={() => addToCart(productData._id)} className="font-bold w-full py-3.5 bg-gray-100 text-gray-800/80 hover:bg-gray-200 transition">
+                            أضف إلى السلة
                         </button>
-                        <button onClick={() => { addToCart(productData._id); router.push('/cart') }} className="w-full py-3.5 bg-orange-500 text-white hover:bg-orange-600 transition">
-                            Buy now
+                        <button onClick={() => { addToCart(productData._id); router.push('/cart') }} className="w-full py-3.5 bg-orange-500 text-white hover:bg-orange-600 transition font-bold">
+                            اشترِ الآن
                         </button>
                     </div>
                 </div>
