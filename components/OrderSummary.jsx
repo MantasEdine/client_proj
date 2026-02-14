@@ -107,7 +107,7 @@ const OrderSummary = () => {
               className="flex-grow w-full outline-none p-2.5 text-gray-600 border"
             />
             <button className="bg-orange-600 text-white px-9 py-2 hover:bg-orange-700">
-              Apply
+              Appliqué
             </button>
           </div>
         </div>
@@ -120,22 +120,21 @@ const OrderSummary = () => {
             <p className="text-gray-800">{getCartAmount()}{currency}</p>
           </div>
           <div className="flex justify-between">
-            <p className="text-gray-600">Shipping Fee</p>
-            <p className="font-medium text-gray-800">Free</p>
+            <p className="text-gray-600">Frais de livraison </p>
+            <p className="font-medium text-gray-800">-----</p>
           </div>
           <div className="flex justify-between">
-            <p className="text-gray-600">Tax (2%)</p>
-            <p className="font-medium text-gray-800">{Math.floor(getCartAmount() * 0.02)}{currency}</p>
           </div>
           <div className="flex justify-between text-lg md:text-xl font-medium border-t pt-3">
-            <p>Total</p>
-            <p>{getCartAmount() + Math.floor(getCartAmount() * 0.02)}{currency}</p>
+            <p>Totale</p>
+            <p>{getCartAmount()}{currency}</p>
           </div>
         </div>
       </div>
 
       <button onClick={createOrder} className="w-full bg-orange-600 text-white py-3 mt-5 hover:bg-orange-700">
-        Place Order
+        Passer la commande
+
       </button>
     </div>
   );
