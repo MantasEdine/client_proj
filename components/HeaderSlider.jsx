@@ -5,29 +5,32 @@ import Image from "next/image";
 const HeaderSlider = () => {
   const sliderData = [
     {
-      id: 1,
-      title: "Experience Pure Sound - Your Perfect Headphones Awaits!",
-      offer: "Limited Time Offer 30% Off",
-      buttonText1: "Buy now",
-      buttonText2: "Find more",
-      imgSrc: assets.header_headphone_image,
-    },
-    {
-      id: 2,
-      title: "Next-Level Gaming Starts Here - Discover PlayStation 5 Today!",
-      offer: "Hurry up only few lefts!",
-      buttonText1: "Shop Now",
-      buttonText2: "Explore Deals",
-      imgSrc: assets.apple_earphone_image,
-    },
-    {
-      id: 3,
-      title: "Power Meets Elegance - Apple MacBook Pro is Here for you!",
-      offer: "Exclusive Deal 40% Off",
-      buttonText1: "Order Now",
-      buttonText2: "Learn More",
-      imgSrc: assets.ancre_sound_core_image,
-    },
+  id: 1,
+  title: "Découvrez un son pur — vos écouteurs parfaits vous attendent !",
+  offer: "Offre limitée : 30% de réduction",
+  buttonText1: "Acheter maintenant",
+  buttonText2: "Voir plus",
+  imgSrc: assets.header_headphone_image,
+},
+{
+  id: 2,
+  title: "Découvrez les écouteurs Apple — un son clair et une élégance incomparable !",
+  offer: "Dépêchez-vous, stock limité !",
+  buttonText1: "Acheter",
+  buttonText2: "Voir les offres",
+  imgSrc: assets.apple_earphone_image,
+},
+
+{
+  id: 3,
+  title: "Un son puissant au quotidien — découvrez les écouteurs Anker !",
+  offer: "Offre exclusive : 40% de réduction",
+  buttonText1: "Commander maintenant",
+  buttonText2: "En savoir plus",
+  imgSrc: assets.ancre_sound_core_image,
+},
+
+
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -61,7 +64,7 @@ const HeaderSlider = () => {
               <h1 className="max-w-lg md:text-[40px] md:leading-[48px] text-2xl font-semibold">
                 {slide.title}
               </h1>
-              <div className="flex items-center mt-4 md:mt-6 ">
+              {/* <div className="flex items-center mt-4 md:mt-6 ">
                 <button className="md:px-10 px-7 md:py-2.5 py-2 bg-orange-600 rounded-full text-white font-medium">
                   {slide.buttonText1}
                 </button>
@@ -69,7 +72,7 @@ const HeaderSlider = () => {
                   {slide.buttonText2}
                   <Image className="group-hover:translate-x-1 transition" src={assets.arrow_icon} alt="arrow_icon" />
                 </button>
-              </div>
+              </div> */}
             </div>
             <div className="flex items-center flex-1 justify-center">
               <Image

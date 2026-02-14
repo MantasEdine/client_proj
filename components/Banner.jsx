@@ -11,17 +11,18 @@ const Banner = () => {
         alt="jbl_soundbox_image"
       />
       <div className="flex flex-col items-center justify-center text-center space-y-2 px-4 md:px-0">
-        <h2 className="text-2xl md:text-3xl font-semibold max-w-[290px]">
-          Level Up Your Gaming Experience
-        </h2>
-        <p className="max-w-[343px] font-medium text-gray-800/60">
-          From immersive sound to precise controls—everything you need to win
-        </p>
-        <button className="group flex items-center justify-center gap-1 px-12 py-2.5 bg-orange-600 rounded text-white">
-          Buy now
-          <Image className="group-hover:translate-x-1 transition" src={assets.arrow_icon_white} alt="arrow_icon_white" />
-        </button>
-      </div>
+  <h2 className="text-2xl md:text-3xl font-semibold max-w-[290px]">
+    Améliorez votre expérience de jeu
+  </h2>
+  <p className="max-w-[343px] font-medium text-gray-800/60">
+    Du son immersif aux contrôles précis — tout ce dont vous avez besoin pour gagner
+  </p>
+  <button className="group flex items-center justify-center gap-1 px-12 py-2.5 bg-orange-600 rounded text-white">
+    Acheter maintenant
+    <Image className="group-hover:translate-x-1 transition" src={assets.arrow_icon_white} alt="arrow_icon_white" />
+  </button>
+</div>
+
       <Image
         className="hidden md:block max-w-80"
         src={assets.md_controller_image}
