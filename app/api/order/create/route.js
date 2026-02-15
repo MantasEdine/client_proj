@@ -1,3 +1,4 @@
+import connectDB from "@/config/db";
 import Product from "@/models/Product";
 import User from "@/models/User";
 import { getAuth } from "@clerk/nextjs/server";
@@ -14,10 +15,14 @@ export async function POST(request) {
         if(!address || items.length === 0){
             return NextResponse.json({success : false , message : 'Invalid data'})
         }
+        await connectDB()
         const amount = await items.reduce(async (acc,item) =>{
             const product = await Product.findById(item.product)
-            return acc + product.offerPrice * item.quantity
+            return await acc + product.offerPrice * item.quantity
         },0)
+        if(!userId){
+            return NextResponse.json({success : false , message : "no userId"})
+        }
         await inngest.send({
             name: 'order/created',
             data:{
@@ -29,9 +34,11 @@ export async function POST(request) {
             }
         })
         const user = await User.findById(userId)
-        user.cartItems = {}
-        await user.save()
-        return NextResponse.json({success : true , message : 'Order Placed'})
+        if(user) {
+            user.cartItems = {}
+            await user.save()
+    }
+        return NextResponse.json({success : true , message : 'Commande passée avec succès'})
 
     } catch (error) {
         console.log(error)
