@@ -14,7 +14,7 @@ const Product = () => {
 
     const { id } = useParams();
 
-    const { products, router, addToCart } = useAppContext()
+    const { products, router, addToCart,user } = useAppContext()
 
     const [mainImage, setMainImage] = useState(null);
     const [productData, setProductData] = useState(null);
@@ -30,6 +30,12 @@ const Product = () => {
 
     return productData ? (<>
         <Navbar />
+         {!user ? (
+        <p className="text-center text-red-600 font-semibold mt-6">
+          يجب تسجيل الدخول لإضافة المنتجات إلى السلة أو إتمام الطلب
+        </p>
+         ) : null}
+
         <div className="px-6 md:px-16 lg:px-32 pt-14 space-y-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                 <div className="px-5 lg:px-16 xl:px-20">
@@ -120,7 +126,9 @@ const Product = () => {
                             اشترِ الآن
                         </button>
                     </div>
+                    
                 </div>
+                
             </div>
             <div className="flex flex-col items-center">
                 <div className="flex flex-col items-center mb-4 mt-16">
