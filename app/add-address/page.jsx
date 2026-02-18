@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 const AddAddress = () => {
-    const  {getToken , router} = useAppContext()
+    const  {getToken , router , user} = useAppContext()
 
     const [address, setAddress] = useState({
         fullName: '',
@@ -29,7 +29,10 @@ const AddAddress = () => {
             toast.success(data.message)
             router.push('/cart')
         }else {
-            toast.error(data.message)
+            if(!user){
+                toast.error("يجب تسجيل الدخول لإضافة عنوان وإتمام عملية الشراء")
+            }
+            
         }
         } catch (error) {
             toast.error(error.message)
@@ -39,6 +42,14 @@ const AddAddress = () => {
     return (
         <>
             <Navbar />
+    
+
+   {!user && (
+  <p className="text-center text-red-600 font-semibold mt-6">
+    يجب تسجيل الدخول لإضافة عنوان وإتمام عملية الشراء
+  </p>
+)}
+
             <div className="px-6 md:px-16 lg:px-32 py-16 flex flex-col md:flex-row justify-between">
                 <form onSubmit={onSubmitHandler} className="w-full">
                     <p className="text-2xl md:text-3xl text-gray-500">

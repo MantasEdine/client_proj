@@ -40,7 +40,9 @@ const OrderSummary = () => {
   const createOrder = async () => {
     try {
       if(!selectedAddress){
-        return toast.error("Veuillez sélectionner une adresse")
+        return toast.error("Veuillez sélectionner une adresse\nيرجى تحديد عنوان");
+
+        
       }
       let cartItemsArray = Object.keys(cartItems).map((key)=>({product:key, quantity:cartItems[key]}))
       cartItemsArray = cartItemsArray.filter(item =>item.quantity > 0)
