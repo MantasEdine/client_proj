@@ -15,7 +15,7 @@ const AddAddress = () => {
         fullName: '',
         phoneNumber: '',
         pincode: '',
-        Adresse: '',
+        area: '',
         city: '',
         state: '',
     })

@@ -9,10 +9,13 @@ const OrderPlaced = () => {
   const { router } = useAppContext()
 
   useEffect(() => {
-    setTimeout(() => {
-      router.push('/my-orders')
-      
+    // Force a hard navigation to ensure data refresh
+    const timer = setTimeout(() => {
+      // Use window.location for a full page reload to ensure fresh data
+      window.location.href = '/my-orders'
     }, 5000)
+
+    return () => clearTimeout(timer)
   }, [])
 
   return (
@@ -22,6 +25,7 @@ const OrderPlaced = () => {
         <div className="animate-spin rounded-full h-24 w-24 border-4 border-t-green-300 border-gray-200"></div>
       </div>
       <div className="text-center text-2xl font-semibold">Commande passée avec succès</div>
+      <p className="text-gray-600 text-sm">Redirection vers vos commandes...</p>
     </div>
   )
 }

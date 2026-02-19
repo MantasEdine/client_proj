@@ -124,6 +124,8 @@ const AddProduct = () => {
               defaultValue={category}
             >
               <option value="Earphone">Earphone</option>
+              <option value="Chargeur-Iphone">Chargeur-Iphone</option>
+
               <option value="Headphone">Headphone</option>
               <option value="Watch">Watch</option>
               <option value="Smartphone">Smartphone</option>
@@ -132,6 +134,8 @@ const AddProduct = () => {
               <option value="Power-Bank">Power-Bank</option>
 
               <option value="Accessories">Accessories</option>
+              <option value="Cable">Cable</option>
+
             </select>
           </div>
           <div className="flex flex-col gap-1 w-32">
