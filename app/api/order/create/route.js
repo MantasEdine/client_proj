@@ -7,7 +7,7 @@ import { inngest } from "@/config/inngest"; // ← use the shared instance
 import { NextResponse } from "next/server";
 
 
-export const inngest = new Inngest({ id: "N-Finity" });
+
 
 export async function POST(request) {
     try {
