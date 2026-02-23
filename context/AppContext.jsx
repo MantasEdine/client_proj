@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import Cookies from 'js-cookie';
 
 export const AppContext = createContext();
 
@@ -23,6 +24,7 @@ export const AppContextProvider = (props) => {
     const [userData, setUserData] = useState(false)
     const [isSeller, setIsSeller] = useState(false)
     const [cartItems, setCartItems] = useState({})
+    const [guestAddress, setGuestAddress] = useState(null)
 
     const fetchProductData = async () => {
         try {
@@ -59,6 +61,30 @@ export const AppContextProvider = (props) => {
         
     }
 
+    // Load guest cart and address from cookies
+    useEffect(() => {
+        if (!user) {
+            const guestCart = Cookies.get('guestCart');
+            const guestAddr = Cookies.get('guestAddress');
+            
+            if (guestCart) {
+                try {
+                    setCartItems(JSON.parse(guestCart));
+                } catch (e) {
+                    console.error('Error parsing guest cart:', e);
+                }
+            }
+            
+            if (guestAddr) {
+                try {
+                    setGuestAddress(JSON.parse(guestAddr));
+                } catch (e) {
+                    console.error('Error parsing guest address:', e);
+                }
+            }
+        }
+    }, [user]);
+
     const addToCart = async (itemId) => {
 
         let cartData = structuredClone(cartItems);
@@ -69,6 +95,7 @@ export const AppContextProvider = (props) => {
             cartData[itemId] = 1;
         }
         setCartItems(cartData);
+        
         if(user){
             try {
                 const token = await getToken()
@@ -78,6 +105,10 @@ export const AppContextProvider = (props) => {
             } catch (error) {
                 toast.error(error.message)
             }
+        } else {
+            // Save to cookie for guest users
+            Cookies.set('guestCart', JSON.stringify(cartData), { expires: 7 });
+            toast.success("تمت إضافة المنتج إلى السلة بنجاح")
         }
     }
 
@@ -90,6 +121,7 @@ export const AppContextProvider = (props) => {
             cartData[itemId] = quantity;
         }
         setCartItems(cartData)
+        
         if(user){
             try {
                 const token = await getToken()
@@ -99,8 +131,24 @@ export const AppContextProvider = (props) => {
             } catch (error) {
                 toast.error(error.message)
             }
+        } else {
+            // Save to cookie for guest users
+            Cookies.set('guestCart', JSON.stringify(cartData), { expires: 7 });
+            toast.success("تم تحديث سلة التسوق")
         }
 
+    }
+
+    const saveGuestAddress = (address) => {
+        setGuestAddress(address);
+        Cookies.set('guestAddress', JSON.stringify(address), { expires: 7 });
+    }
+
+    const clearGuestData = () => {
+        Cookies.remove('guestCart');
+        Cookies.remove('guestAddress');
+        setCartItems({});
+        setGuestAddress(null);
     }
 
     const getCartCount = () => {
@@ -114,15 +162,24 @@ export const AppContextProvider = (props) => {
     }
 
     const getCartAmount = () => {
-        let totalAmount = 0;
-        for (const items in cartItems) {
-            let itemInfo = products.find((product) => product._id === items);
-            if (cartItems[items] > 0) {
-                totalAmount += itemInfo.offerPrice * cartItems[items];
-            }
+    let totalAmount = 0;
+
+    if (!products.length) return 0;
+
+    for (const itemId in cartItems) {
+        const itemInfo = products.find(
+            (product) => product._id.toString() === itemId
+        );
+
+        if (!itemInfo) continue;
+
+        if (cartItems[itemId] > 0) {
+            totalAmount += itemInfo.offerPrice * cartItems[itemId];
         }
-        return Math.floor(totalAmount * 100) / 100;
     }
+
+    return Math.floor(totalAmount * 100) / 100;
+};
 
     useEffect(() => {
         fetchProductData()
@@ -143,7 +200,9 @@ export const AppContextProvider = (props) => {
         products, fetchProductData,
         cartItems, setCartItems,
         addToCart, updateCartQuantity,
-        getCartCount, getCartAmount
+        getCartCount, getCartAmount,
+        guestAddress, saveGuestAddress,
+        clearGuestData
     }
 
     return (
