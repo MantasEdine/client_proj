@@ -2,7 +2,8 @@ import connectDB from "@/config/db";
 import Product from "@/models/Product";
 import User from "@/models/User";
 import { getAuth } from "@clerk/nextjs/server";
-import { Inngest } from "inngest";
+// app/api/order/create/route.js
+import { inngest } from "@/config/inngest"; // ← use the shared instance
 import { NextResponse } from "next/server";
 
 

@@ -17,6 +17,7 @@ const AddProduct = () => {
   const [category, setCategory] = useState('Earphone');
   const [price, setPrice] = useState('');
   const [offerPrice, setOfferPrice] = useState('');
+  const [isPromotion, setIsPromotion] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,9 +29,9 @@ const AddProduct = () => {
     formData.append('category',category)
     formData.append('price',price)
     formData.append('offerPrice',offerPrice)
+    formData.append('isPromotion', isPromotion)
     for (let i = 0; i < files.length; i++) {
       formData.append('image',files[i])
-      
     }
     try {
       const token = await getToken()
@@ -43,15 +44,13 @@ const AddProduct = () => {
         setCategory('Earphone')
         setPrice('')
         setOfferPrice('')
-
+        setIsPromotion(false)
       }else {
         toast.error(data.message)
       }
     } catch (error) {
       toast.error(error.message)
     }
-
-
   };
 
   return (
@@ -60,7 +59,6 @@ const AddProduct = () => {
         <div>
           <p className="text-base font-medium">Product Image</p>
           <div className="flex flex-wrap items-center gap-3 mt-2">
-
             {[...Array(4)].map((_, index) => (
               <label key={index} htmlFor={`image${index}`}>
                 <input onChange={(e) => {
@@ -78,9 +76,9 @@ const AddProduct = () => {
                 />
               </label>
             ))}
-
           </div>
         </div>
+
         <div className="flex flex-col gap-1 max-w-md">
           <label className="text-base font-medium" htmlFor="product-name">
             Product Name
@@ -95,11 +93,9 @@ const AddProduct = () => {
             required
           />
         </div>
+
         <div className="flex flex-col gap-1 max-w-md">
-          <label
-            className="text-base font-medium"
-            htmlFor="product-description"
-          >
+          <label className="text-base font-medium" htmlFor="product-description">
             Product Description
           </label>
           <textarea
@@ -112,6 +108,7 @@ const AddProduct = () => {
             required
           ></textarea>
         </div>
+
         <div className="flex items-center gap-5 flex-wrap">
           <div className="flex flex-col gap-1 w-32">
             <label className="text-base font-medium" htmlFor="category">
@@ -125,19 +122,17 @@ const AddProduct = () => {
             >
               <option value="Earphone">Earphone</option>
               <option value="Chargeur-Iphone">Chargeur-Iphone</option>
-
               <option value="Headphone">Headphone</option>
               <option value="Watch">Watch</option>
               <option value="Smartphone">Smartphone</option>
               <option value="Laptop">Laptop</option>
               <option value="Camera">Camera</option>
               <option value="Power-Bank">Power-Bank</option>
-
               <option value="Accessories">Accessories</option>
               <option value="Cable">Cable</option>
-
             </select>
           </div>
+
           <div className="flex flex-col gap-1 w-32">
             <label className="text-base font-medium" htmlFor="product-price">
               Product Price
@@ -152,6 +147,7 @@ const AddProduct = () => {
               required
             />
           </div>
+
           <div className="flex flex-col gap-1 w-32">
             <label className="text-base font-medium" htmlFor="offer-price">
               Offer Price
@@ -167,11 +163,37 @@ const AddProduct = () => {
             />
           </div>
         </div>
+
+        {/* Promotion Toggle */}
+        <div className="flex flex-col gap-2 max-w-md">
+          <label className="text-base font-medium">Promotion</label>
+          <div
+            onClick={() => setIsPromotion(!isPromotion)}
+            className={`flex items-center gap-3 w-fit px-4 py-3 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
+              isPromotion
+                ? 'border-orange-500 bg-orange-50'
+                : 'border-gray-300 bg-white hover:border-gray-400'
+            }`}
+          >
+            {/* Toggle switch */}
+            <div className={`relative w-11 h-6 rounded-full transition-colors duration-200 ${isPromotion ? 'bg-orange-500' : 'bg-gray-300'}`}>
+              <div className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 ${isPromotion ? 'translate-x-5' : 'translate-x-0'}`}></div>
+            </div>
+            <div>
+              <p className={`font-medium text-sm ${isPromotion ? 'text-orange-600' : 'text-gray-600'}`}>
+                {isPromotion ? '🔥 En Promotion' : 'Pas en promotion'}
+              </p>
+              <p className="text-xs text-gray-400">
+                {isPromotion ? 'Ce produit apparaîtra sur la page Promotions' : 'Activer pour afficher dans les promotions'}
+              </p>
+            </div>
+          </div>
+        </div>
+
         <button type="submit" className="px-8 py-2.5 bg-orange-600 text-white font-medium rounded">
           ADD
         </button>
       </form>
-      {/* <Footer /> */}
     </div>
   );
 };

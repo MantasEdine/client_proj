@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 
 const MyOrders = () => {
 
-    const { currency, getToken , user } = useAppContext();
+    const { currency, getToken , user , router } = useAppContext();
 
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);

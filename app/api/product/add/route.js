@@ -25,16 +25,17 @@ export async function POST(request) {
         const category = formData.get('category')
         const price = formData.get('price')
         const offerPrice = formData.get('offerPrice')
+        const isPromotion = formData.get('isPromotion') === 'true'
         const files = formData.getAll('image')
 
         if (!files || files.length === 0){
             return NextResponse.json({success : false , message : "No Files Uploaded"})
-
         }
+
         const result = await Promise.all(
             files.map(async (file)=>{
                 const arrayBuffer = await file.arrayBuffer()
-                const buffer =  Buffer.from(arrayBuffer)
+                const buffer = Buffer.from(arrayBuffer)
                 return new Promise((resolve,reject)=>{
                     const stream = cloudinary.uploader.upload_stream({
                         resource_type : 'auto'
@@ -51,6 +52,7 @@ export async function POST(request) {
                 })
             })
         )
+
         const image = result.map(result => result.secure_url)
         await connectDB()
         const newProduct = await Product.create({
@@ -58,15 +60,14 @@ export async function POST(request) {
             name,
             description,
             category,
-            price:Number(price),
-            offerPrice:Number(offerPrice),
+            price: Number(price),
+            offerPrice: Number(offerPrice),
             image,
+            isPromotion,
             date: Date.now()
         })
         return NextResponse.json({success : true , message : 'Uploaded Successfully', newProduct})
     } catch (error) {
         return NextResponse.json({success : false , message : 'No File Uploaded'})
-        
     }
-    
 }
