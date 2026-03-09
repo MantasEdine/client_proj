@@ -96,15 +96,11 @@ const Product = () => {
                         <table className="table-auto border-collapse w-full max-w-72">
                             <tbody>
                                 <tr>
-                                    <td className="text-gray-600 font-medium">Brand</td>
-                                    <td className="text-gray-800/50 ">Generic</td>
+                                    <td className="text-gray-600 font-medium">Marque</td>
+                                    <td className="text-gray-800/50">{productData.brand || 'Autre'}</td>
                                 </tr>
                                 <tr>
-                                    <td className="text-gray-600 font-medium">Color</td>
-                                    <td className="text-gray-800/50 ">Multi</td>
-                                </tr>
-                                <tr>
-                                    <td className="text-gray-600 font-medium">Category</td>
+                                    <td className="text-gray-600 font-medium">Catégorie</td>
                                     <td className="text-gray-800/50">
                                         {productData.category}
                                     </td>
@@ -127,14 +123,17 @@ const Product = () => {
             </div>
             <div className="flex flex-col items-center">
                 <div className="flex flex-col items-center mb-4 mt-16">
-                    <p className="text-3xl font-medium">Featured <span className="font-medium text-orange-600">Products</span></p>
+                    <p className="text-3xl font-medium">Produits <span className="font-medium text-orange-600">Similaires</span></p>
                     <div className="w-28 h-0.5 bg-orange-600 mt-2"></div>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-6 pb-14 w-full">
-                    {products.slice(0, 5).map((product, index) => <ProductCard key={index} product={product} />)}
+                    {products.filter(p => p.category === productData.category && p._id !== productData._id).slice(0, 5).map((product, index) => <ProductCard key={index} product={product} />)}
+                    {products.filter(p => p.category === productData.category && p._id !== productData._id).length === 0 && 
+                        products.slice(0, 5).map((product, index) => <ProductCard key={index} product={product} />)
+                    }
                 </div>
-                <button className="px-8 py-2 mb-16 border rounded text-gray-500/70 hover:bg-slate-50/90 transition">
-                    See more
+                <button onClick={() => router.push('/all-products')} className="px-8 py-2 mb-16 border rounded text-gray-500/70 hover:bg-slate-50/90 transition">
+                    Voir plus
                 </button>
             </div>
         </div>

@@ -23,6 +23,7 @@ export async function POST(request) {
         const name = formData.get('name')
         const description = formData.get('description')
         const category = formData.get('category')
+        const brand = formData.get('brand') || 'Autre'
         const price = formData.get('price')
         const offerPrice = formData.get('offerPrice')
         const isPromotion = formData.get('isPromotion') === 'true'
@@ -60,6 +61,7 @@ export async function POST(request) {
             name,
             description,
             category,
+            brand,
             price: Number(price),
             offerPrice: Number(offerPrice),
             image,
