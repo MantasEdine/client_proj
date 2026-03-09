@@ -504,7 +504,7 @@ const Navbar = () => {
         <div className="flex-shrink-0 p-4 border-t border-gray-200 bg-gray-50">
           <div className="text-center">
             <p className="text-xs text-gray-500 mb-1">Besoin d'aide ? / محتاج مساعدة؟</p>
-            <a href="tel:0550129006" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">0550 12 90 06</a>
+            <a href="tel:0549982823" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">0549 98 28 23</a>
           </div>
         </div>
       </div>

@@ -126,8 +126,8 @@ const AboutUs = () => {
                             </div>
                             <h3 className="font-semibold text-gray-800 mb-1">Téléphone / WhatsApp</h3>
                             <p className="text-xs text-gray-600 mb-2" dir="rtl">هاتف / واتساب</p>
-                            <a href="tel:0550129006" className="text-orange-600 hover:text-orange-700 text-sm block">
-                                0550 12 90 06
+                            <a href="tel:0549982823" className="text-orange-600 hover:text-orange-700 text-sm block">
+                                0549 98 28 23
                             </a>
                             <a href="https://wa.me/213550129006" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 text-xs mt-1 inline-block">
                                 Ouvrir WhatsApp / فتح واتساب
