@@ -1,5 +1,5 @@
 'use client'
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 import Navbar from "@/components/Navbar";
@@ -7,10 +7,11 @@ import Footer from "@/components/Footer";
 import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
 import { assets } from "@/assets/assets";
+import Loading from "@/components/Loading";
 
 const BRANDS = ["Hoco", "Anker", "Xiaomi", "Samsung", "Baseus"];
 
-const AllProducts = () => {
+const AllProductsContent = () => {
     const { products } = useAppContext();
     const searchParams = useSearchParams();
     
@@ -308,4 +309,10 @@ const AllProducts = () => {
     );
 };
 
-export default AllProducts;
+export default function AllProducts() {
+    return (
+        <Suspense fallback={<Loading />}>
+            <AllProductsContent />
+        </Suspense>
+    );
+}
