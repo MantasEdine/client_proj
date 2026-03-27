@@ -14,6 +14,9 @@ export const metadata = {
     description: "Site E-commerce Belfort Harrach , Alger , Algérie",
     images: ["/logo2.png"],
   },
+  verification: {
+    google: "Lx1BtB0-ANJfM7wHL4GCgqdPsJy187ymjGL5ZLQHlI0",
+  },
 };
 
 
